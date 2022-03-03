@@ -1,5 +1,5 @@
 import pyautogui as auto
-import pyscreenshot as imggrab
+from PIL import ImageGrab as imggrab
 from time import sleep
 
 
