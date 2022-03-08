@@ -1,6 +1,5 @@
 from PIL import ImageGrab as imggrab
-from pydub import AudioSegment
-from pydub.playback import play
+from playsound import playsound 
 
 def hasBomb() -> bool:
     img = imggrab.grab(bbox=(1850, 686, 1850+1, 686+1))
@@ -12,12 +11,10 @@ def hasBomb() -> bool:
     return False
 
 def main():
-    print("gfdgd")
     while True:
         if hasBomb():
-            song = AudioSegment.from_mp3("KAMPP!.mp3")
-            play(song)
-            print("hej")
+            playsound("G:\Mit drev\GitHub\PythonThings\BombReminder\Kampp.wav")
+            
 
 if __name__ == "__main__":
     main()
