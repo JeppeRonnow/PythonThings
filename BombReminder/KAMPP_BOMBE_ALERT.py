@@ -1,5 +1,6 @@
 from PIL import ImageGrab as imggrab
 from playsound import playsound 
+import os, sys
 
 def hasBomb() -> bool:
     img = imggrab.grab(bbox=(1850, 686, 1850+1, 686+1))
@@ -13,7 +14,7 @@ def hasBomb() -> bool:
 def main():
     while True:
         if hasBomb():
-            playsound("G:\Mit drev\GitHub\PythonThings\BombReminder\Kampp.wav")
+            playsound("BombReminder\Kampp.wav")
             
 
 if __name__ == "__main__":
