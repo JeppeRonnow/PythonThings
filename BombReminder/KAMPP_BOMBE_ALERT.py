@@ -1,6 +1,5 @@
 from PIL import ImageGrab as imggrab
 from playsound import playsound 
-import os, sys
 
 def hasBomb() -> bool:
     img = imggrab.grab(bbox=(1850, 686, 1850+1, 686+1))
