@@ -11,8 +11,10 @@ def hasBomb() -> bool:
     return False
 
 def main():
+    print("Script armed and ready")
     while True:
         if hasBomb():
+            print("Smid den fucking Spike")
             playsound("BombReminder\Kampp.wav")
             
 
