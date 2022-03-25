@@ -38,7 +38,7 @@ def wait_for_load():
 
         if rgb_pixel_value == (255,255,255) and rgb_pixel_value2 == (234,238,178):
             return
-        
+        sleep(0.2)
 
 def lockin():
     auto.click(agent_X, agent_Y)
