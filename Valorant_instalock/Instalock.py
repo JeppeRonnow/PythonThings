@@ -51,13 +51,24 @@ def lockin():
 
 def main():
     agent_select()
+    
+    while True:
+        print("waiting...")
+        wait_for_load()
+        lockin()
+        print("agent locked")
+        sleep(2)
 
-    wait_for_load()
-    lockin()
-    print("agent locked")
-    sleep(2)
-    quit()
-
+        while True:
+            answer = str(input('Run again? (y/n): '))
+            if answer in ('y', 'n'):
+                break
+            print("invalid input.")
+        if answer == 'y':
+            continue
+        else:
+            print("Mojn")
+            break
 
 if __name__ == "__main__":
     main()
