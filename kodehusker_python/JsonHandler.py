@@ -7,7 +7,7 @@ class Student:
         self.name = name
         self.id = id
 
-s1 = Student('john', 4)
+s1 = Student('jeppe', 4)
 s2 = Student('Sunil', 6)
 s3 = Student('joghd', 7)
 

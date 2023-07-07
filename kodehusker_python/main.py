@@ -3,6 +3,7 @@ import customtkinter
 import os
 cwd = os.getcwd()
 
+import json
 
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
@@ -18,13 +19,37 @@ info = []
 
 obj_list = []
 
+class passObj:
+    def __init__(self, place, user, password):
+        self.place = place
+        self.user = user
+        self.password = password
+
+    def __str__(self):
+        return f"passObj: {self.place}, {self.user}, {self.password}"
+
+file_path = os.path.join(cwd, 'kodehusker_python', 'save.json')
+
+try:
+    with open(file_path, "r") as f:
+        data = json.load(f)
+
+    for item in data:
+        obj = passObj(item['place'], item['user'], item['password'])
+        obj_list.append(obj)
+
+except FileNotFoundError:
+    print(f"File not found: {file_path}")
+
+except json.JSONDecodeError:
+    print(f"Error decoding JSON file: {file_path}")
 
 def login_button():
     print("login pressed")
     kode = entry.get()
     print(kode)
-    main_frame.pack(fill="both", expand=1)
-    login_frame.forget()
+    main_page()
+    
 
 def logud_button():
     print("logud pressed")
@@ -41,6 +66,7 @@ def main_page():
     login_frame.pack_forget()
     create_pass.pack_forget()
     main_frame.pack(fill="both", expand=1)
+    display_list()
 
 def add_pass(event):
     main_page()
@@ -50,26 +76,20 @@ def add_pass(event):
     obj_list.append(passObj(info[0],info[1],info[2]))
     info.clear()
 
+    json_object = json.dumps([obj.__dict__ for obj in obj_list])
+    
+    with open(cwd + '\kodehusker_python\save.json', "w") as outfile:
+        outfile.write(json_object)
+
+    print(type(obj_list[0]))
+
+    display_list()
+
     for entry1 in entries:
         entry1.delete(0, customtkinter.END)
 
-    for i in range(len(obj_list)):
-        print(obj_list[i])
     
     
-    
-
-
-class passObj:
-    def __init__(self, place, user, password):
-        self.place = place
-        self.user = user
-        self.password = password
-
-    def __str__(self):
-        return f"passObj: {self.place}, {self.user}, {self.password}"
-
-
 
 #login
 login_frame = customtkinter.CTkFrame(app)
@@ -108,9 +128,14 @@ button.place(relx=0.95, rely=0.05, anchor=tkinter.CENTER, relwidth=0.05, relheig
 button = customtkinter.CTkButton(main_frame, text="Opret kodeord", command=create_button, font=("Arial", 20), text_color=("black", "white"))
 button.place(relx=0.1, rely=0.1, anchor=tkinter.CENTER, relwidth=0.15, relheight=0.05)
 
-for i in range(4):
-    label = customtkinter.CTkLabel(main_frame, text="Kode     Pass     place", font=("Arial", 25), text_color=("black", "white"))
-    label.place(relx=0.5, rely=0.25 + (i*0.1), anchor=tkinter.CENTER)
+#display passwords
+def display_list():
+    for i in range(len(obj_list)):
+        display_label = customtkinter.CTkLabel(main_frame, 
+        text="Place: " + obj_list[i].place + " | User: " + obj_list[i].user + " | Password: " + obj_list[i].password, 
+        font=("Arial", 20), text_color=("black", "white"))
+
+        display_label.place(relx=0.5, rely=0.25 + (i*0.05), anchor=tkinter.CENTER)
 
 
 
